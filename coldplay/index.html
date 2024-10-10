@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>Web d'Ariadna</title>
+    <style>body {
+    padding: 0; /* Elimina l'espai extra al voltant del cos */
+}
 
+.container-fluid {
+    max-width: 100%; /* Assegura que la navbar ocupa tota l'amplada */
+}
+
+    
+    .navbar {
+    padding-left: 0; /* Elimina el padding esquerra de la navbar */
+}
+
+.logo {
+    margin-right: 20px; /* Ajustar el marge si vols separar el logo del text */
+    margin-left: 0; /* Assegurar que no hi hagi marge a l'esquerra */
+}
+
+    
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+
+}
+
+.brand-text {
+    white-space: nowrap; /* Això assegura que el text no es trenqui en múltiples línies */
+    font-size: 1.25rem; /* Ajusta la mida de la font si és necessari */
+}  
+.content-container {
+            margin-left: 10px;
+            margin-right: 10px; /* Marges laterals ajustats */
+            margin-top: 20px; /* Afegeix espai superior entre el contingut i la barra de menú */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+       <a class="navbar-brand d-flex align-items-center" href="#">
+    <img src="logo.png" alt="Logo" width="50" class="logo">
+    <span class="brand-text">Web d'Ariadna</span>
+</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inici</a>
+                </li>Aliments ecològics i convencionals amb html en el meu cas he mirat si la poma ecològica te més nutrients que la convencional en un exercici 
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tema 1</a>
+                </li>Apartir dels logos i dels simbols de l'album de Coldplay farem que aquest símbols canvien de color i tamany i es mouin al ritme de la música, amb més volum la freqüència.Es a dir farem la Creació d'una obra s'art. 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Projectes</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://anualart4.github.io/aliment">Projecte Convencional o ecològic?</a>
+                        <a class="dropdown-item" href="#">Projecte 2</a>
+                        <a class="dropdown-item" href="#">Projecte 3</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tema 2</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contingut principal -->
+<div class="content-container">
+    <h1>Projecte Coldplay</h1>
+    <p>Fins el dia 15 de Novembre estarem fent un projecte que enviarem al grup de música Coldplay. Aquest enviament serà un<a href="https://es.wikipedia.org/Pechakucha">Pechakucha</a></p>
+    <p> Un pechakucha és una presentació professional que consta de 20 diapositivas que dura 20 segons cadascuna, es a dir una mica mes 
+      de 6 minuts. Ha de ser molt visual i ha de contenir una mica de codi per explicar el que fem en anglès amb la nostra veu (podem utilitzar intel·ligència artificial
+      i traductor per traduir i per pronuncar, com Google Translate)</p>
+<p> El nostre projecte serà un visualitzador d'àudio en temps real per a Coldplay però personalitzat pel nou àlbum del 4 d'Octubre del 2024 
+  anomenat moon Music, per exemple podem animar una lluna creixent i fer que sigui més gran de tamany si el volum augmenta o que sigui més vermella si el 
+  so és més agut i que sigui més verda si el so és més greu.
+  A més de la lluna creixent altres figures podrien ser lluna decreixent i llun completa. Si la cançó és sky full of starss'animaran estrelles 
+  i es faran més gran depenent del volum i el color dependre de si és veu greu o més agutSi és la cançó we pray posarem el símbol de les mans pregan i es 
+  mouran apropan-se i separan-se amb el volum i canviant de color per exemple de blanc a negre depenent del so, agut o greu.Els símbols 
+d'infinit i d'un arc de Sant Martí també s'utilitza.</p>
+</h2> Com ho farem?</h2>
+</p> Utilitzarem HTML que és un llenguatge de marques<marca></marca>, CSS que és un llenguatge d'estil que ens permet jugar amb el tipus de
+  lletra,marges,colors i el llenguatge més important JAVASCRIPT utilitzarem 
+  <A href="https://editor.p5js.org">2>p5.js</a>.Primer dibuixarem a mà amb un  paper milimetrat o una pàgina web creatpel professor un dibuix
+  que serà relacionat amb Coldplay i que animarem a música de coldplay</p>
+  <p>A continuació veuràs un llistat amb diferents projectes que farem durant el curs:</p>
+    <ul>
+        <li>Creació d'una obra d'art geomètrica interactiva que reaccioni a la meva veu a través d'un micròfon i a diferents tecles del teclat, al ratolí, que faci moviments repetitius amb sin i cos, moviments aleatoris amb random... Utilitzarem p5.js.</li>
+        <li>Aliments ecològics i convencionals amb C++.</li>
+        <li>Contaminació atmosfèrica d'una ciutat catalana amb R.</li> 
+    </ul>
+</div>
+
+<!-- Scripts necessaris -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
