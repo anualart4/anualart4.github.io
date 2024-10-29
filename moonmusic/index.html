@@ -1,285 +1,779 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Heart, Crescent Moon, and Rainbow Animation</title>
     <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-      }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #0d335f;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .controls-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        canvas {
+            border: 2px solid white;
+            max-width: 100%;
+            height: auto;
+        }
+        .plyr, .default-player {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .default-player {
+            display: none;
+        }
+        /* Custom CSS for default HTML5 audio player */
+        .default-player audio {
+            width: 100%;
+            background-color: #f1f3f4;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .default-player audio::-webkit-media-controls-panel {
+            background-color: #f1f3f4;
+        }
+        .default-player audio::-webkit-media-controls-current-time-display,
+        .default-player audio::-webkit-media-controls-time-remaining-display {
+            color: #5f6368;
+        }
+        #audio-upload, #shape-selector {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        #song-title {
+            color: white;
+            margin-top: 10px;
+            font-size: 18px;
+            text-align: center;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        @media (max-width: 768px) {
+            .controls-container {
+                padding: 10px;
+            }
+            canvas {
+                width: 100%;
+                height: auto;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <center>
-      <h1>Page Not Found</h1>
-      <h2>The requested web page was not found on this site.</h2>
-    </center>
-  </body>
-</html>
-beginShape();// c from coldplay
-vertex(70, 14.1875);
-vertex(82, 7.1875);
-vertex(61, 7.1875);
-vertex(49, 15.1875);
-vertex(37, 26.1875);
-vertex(30, 41.1875);
-vertex(30, 53.1875);
-vertex(33, 63.1875);
-vertex(40, 73.1875);
-vertex(50, 82.1875);
-vertex(60, 88.1875);
-vertex(73, 88.1875);
-vertex(66, 79.1875);
-vertex(56, 68.1875);
-vertex(50, 54.1875);
-vertex(50, 38.1875);
-vertex(57, 24.1875);
-endShape
-beginShape();// o from coldplay
-vertex(70, 14.1875);
-vertex(82, 7.1875);
-vertex(61, 7.1875);
-vertex(49, 15.1875);
-vertex(37, 26.1875);
-vertex(30, 41.1875);
-vertex(30, 53.1875);
-vertex(33, 63.1875);
-vertex(40, 73.1875);
-vertex(50, 82.1875);
-vertex(60, 88.1875);
-vertex(73, 88.1875);
-vertex(66, 79.1875);
-vertex(56, 68.1875);
-vertex(50, 54.1875);
-vertex(50, 38.1875);
-vertex(57, 24.1875);
-endShape();
-beginShape();// l from coldplay
-vertex(70, 14.1875);
-vertex(82, 7.1875);
-vertex(61, 7.1875);
-vertex(49, 15.1875);
-vertex(37, 26.1875);
-vertex(30, 41.1875);
-vertex(30, 53.1875);
-vertex(33, 63.1875);
-vertex(37, 72.1875);
-vertex(44, 81.1875);
-vertex(54, 85.1875);
-vertex(58, 22.1875);
-vertex(50, 37.1875);
-vertex(45, 49.1875);
-vertex(49, 61.1875);
-vertex(57, 70.1875);
-vertex(65, 80.1875);
-vertex(66, 87.1875);
-vertex(77, 87.1875);
-vertex(120, 47.1875);
-vertex(125, 33.1875);
-vertex(130, 24.1875);
-vertex(139, 16.1875);
-vertex(153, 9.1875);
-vertex(168, 9.1875);
-vertex(184, 14.1875);
-vertex(195, 22.1875);
-vertex(199, 33.1875);
-vertex(203, 49.1875);
-vertex(122, 60.1875);
-vertex(130, 75.1875);
-vertex(139, 83.1875);
-vertex(152, 86.1875);
-vertex(169, 87.1875);
-vertex(184, 82.1875);
-vertex(197, 72.1875);
-vertex(198, 60.1875);
-vertex(203, 56.1875);
-vertex(200, 37.1875);
-vertex(197, 27.1875);
-vertex(188, 17.1875);
-vertex(175, 11.1875);
-vertex(162, 10.1875);
-vertex(141, 12.1875);
-vertex(134, 19.1875);
-vertex(121, 36.1875);
-vertex(121, 51.1875);
-vertex(121, 57.1875);
-vertex(121, 67.1875);
-vertex(128, 76.1875);
-vertex(145, 82.1875);
-vertex(159, 89.1875);
-vertex(171, 86.1875);
-vertex(178, 84.1875);
-vertex(191, 75.1875);
-vertex(201, 62.1875);
-endShape();
-beginShape();// d from coldplay
-vertex(70, 14.1875);
-vertex(82, 7.1875);
-vertex(61, 7.1875);
-vertex(49, 15.1875);
-vertex(37, 26.1875);
-vertex(30, 41.1875);
-vertex(30, 53.1875);
-vertex(33, 63.1875);
-vertex(37, 72.1875);
-vertex(44, 81.1875);
-vertex(54, 85.1875);
-vertex(58, 22.1875);
-vertex(50, 37.1875);
-vertex(45, 49.1875);
-vertex(49, 61.1875);
-vertex(57, 70.1875);
-vertex(65, 80.1875);
-vertex(66, 87.1875);
-vertex(77, 87.1875);
-vertex(120, 47.1875);
-vertex(125, 33.1875);
-vertex(130, 24.1875);
-vertex(139, 16.1875);
-vertex(153, 9.1875);
-vertex(168, 9.1875);
-vertex(184, 14.1875);
-vertex(195, 22.1875);
-vertex(199, 33.1875);
-vertex(203, 49.1875);
-vertex(122, 60.1875);
-vertex(130, 75.1875);
-vertex(139, 83.1875);
-vertex(152, 86.1875);
-vertex(169, 87.1875);
-vertex(184, 82.1875);
-vertex(197, 72.1875);
-vertex(198, 60.1875);
-vertex(203, 56.1875);
-vertex(200, 37.1875);
-vertex(197, 27.1875);
-vertex(188, 17.1875);
-vertex(175, 11.1875);
-vertex(162, 10.1875);
-vertex(141, 12.1875);
-vertex(134, 19.1875);
-vertex(121, 36.1875);
-vertex(121, 51.1875);
-vertex(121, 57.1875);
-vertex(121, 67.1875);
-vertex(128, 76.1875);
-vertex(145, 82.1875);
-vertex(159, 89.1875);
-vertex(171, 86.1875);
-vertex(178, 84.1875);
-vertex(191, 75.1875);
-vertex(201, 62.1875);
-vertex(256, 14.1875);
 
-vertex(245, 19.1875);
-vertex(241, 24.1875);
-vertex(239, 32.1875);
-fill(r,g,b);//aquesta linea nova omple de color rgb i la anterior feia el contorl
-vertex(236, 43.1875);
-vertex(236, 50.1875);
-vertex(239, 56.1875);
-vertex(243, 66.1875);
-vertex(249, 69.1875);
-vertex(256, 76.1875);
-vertex(268, 78.1875);
-vertex(280, 79.1875);
-vertex(284, 81.1875);
-vertex(252, 55.1875);
-vertex(261, 65.1875);
-vertex(70, 14.1875);
-vertex(278, 72.1875);
-vertex(288, 72.1875);
+    <!-- Include Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+<body>
+<h2 style="color: white;">Coldplay audio player</h2>
+<div class="controls-container">
+    <input type="file" id="audio-upload" accept="audio/*" />
+    <select id="shape-selector">
+        <option value="heart">Coldplay</option>
+        <option value="moon">Crescent Moon</option>
+        <option value="rainbow">Rainbow</option>
+    </select>
+
+    <!-- Display the song title here -->
+    <h2 id="song-title"></h2>
+
+    <!-- Audio element for Plyr -->
+    <audio id="player" class="plyr" controls></audio>
+
+    <!-- Default HTML5 audio player -->
+    <div class="default-player">
+        <audio id="default-player" controls></audio>
+    </div>
+</div>
+
+<!-- Include Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+
+<script>
+let amplitude, fft;
+let song;
+let shapes = [];
+let numShapes = 10;
+let selectedShape = 'heart';
+let player;
+
+function setup() {
+    let canvas = createCanvas(600, 600);
+    canvas.parent(document.body);
+    canvas.style('max-width', '100%');
+    canvas.style('height', 'auto');
+
+    amplitude = new p5.Amplitude();
+    fft = new p5.FFT();
+
+    for (let i = 0; i < numShapes; i++) {
+        let x = random(width);
+        let y = random(height);
+        shapes.push({x: x, y: y});
+    }
+
+    let fileInput = document.getElementById('audio-upload');
+    fileInput.addEventListener('change', handleFileUpload);
+
+    let shapeSelector = document.getElementById('shape-selector');
+    shapeSelector.addEventListener('change', function() {
+        selectedShape = this.value;
+    });
+
+    // Initialize Plyr with fallback
+    try {
+        player = new Plyr('#player');
+    } catch (error) {
+        console.error('Plyr initialization failed:', error);
+        document.querySelector('.plyr').style.display = 'none';
+        document.querySelector('.default-player').style.display = 'block';
+    }
+}
+
+function draw() {
+    background('#0d335f');
+
+    if (!song || !song.isPlaying()) {
+      return;
+    }
+
+    let level = amplitude.getLevel();
+    let size = map(level, 0, 1, 0.5, 1.5); // Escala de la mida de la forma
+
+    let spectrum = fft.analyze();
+    let bass = fft.getEnergy("bass");
+    let treble = fft.getEnergy("treble");
+
+    let r = map(bass, 0, 255, 50, 255);
+    let b = map(treble, 0, 255, 50, 255);
+    let g = map(level, 0, 1, 50, 255);
+
+    noFill();
+    stroke(r, g, b);
+    strokeWeight(3);
+    //fill(r,g,b);//aquesta línea nova omple de color rgb i l'anterior feia el contorn.
+    //the previous line fills the shapes below with the rgb colors obtained from sound frequencies (bass and treble) and volume (level)
+
+    // Dibuixar múltiples formes (cors, llunes o arcs de Sant Martí)
+    shapes.forEach(shape => {
+      push();
+      translate(shape.x, shape.y);
+      scale(size);
+
+      if (selectedShape === 'heart') {
+          drawHeart(); // Dibuixa el cor
+      } else if (selectedShape === 'moon') {
+          drawCrescentMoon(); // Dibuixa la lluna creixent
+      } else if (selectedShape === 'rainbow') {
+          drawRainbow(); // Dibuixa l'arc de Sant Martí
+      }
+
+      pop();
+   });
+}
+
+function drawHeart() {
+  beginShape();//c from coldplay
+vertex(136, 25.1875);
+vertex(125, 25.1875);
+vertex(114, 28.1875);
+vertex(107, 33.1875);
+vertex(100, 43.1875);
+vertex(97, 54.1875);
+vertex(98, 66.1875);
+vertex(104, 76.1875);
+vertex(113, 82.1875);
+vertex(123, 85.1875);
+vertex(132, 85.1875);
+vertex(126, 81.1875);
+vertex(120, 78.1875);
+vertex(115, 71.1875);
+vertex(112, 62.1875);
+vertex(110, 52.1875);
+vertex(112, 44.1875);
+vertex(118, 35.1875);
+endShape(CLOSE);
+    beginShape();//o from coldplay
+vertex(171, 33.1875);
+vertex(191, 24.1875);
+vertex(209, 27.1875);
+vertex(219, 36.1875);
+vertex(224, 43.1875);
+vertex(226, 52.1875);
+vertex(226, 61.1875);
+vertex(223, 69.1875);
+vertex(217, 76.1875);
+vertex(211, 80.1875);
+vertex(199, 85.1875);
+vertex(189, 84.1875);
+vertex(178, 81.1875);
+vertex(167, 72.1875);
+vertex(164, 61.1875);
+vertex(163, 50.1875);
+endShape(CLOSE);
+    beginShape();//l from coldplay
+    vertex(265, 28.1875);
+vertex(258, 35.1875);
+vertex(254, 46.1875);
+vertex(253, 57.1875);
+vertex(257, 67.1875);
+vertex(266, 77.1875);
+vertex(276, 81.1875);
+vertex(289, 83.1875);
+vertex(300, 79.1875);
+vertex(308, 72.1875);
+vertex(304, 73.1875);
 vertex(298, 75.1875);
-endShape();
-beginShape(); p from coldplay
-vertex(70, 14.1875);
-vertex(82, 7.1875);
-vertex(61, 7.1875);
-vertex(49, 15.1875);
-vertex(37, 26.1875);
-vertex(30, 41.1875);
-vertex(30, 53.1875);
-vertex(33, 63.1875);
-vertex(37, 72.1875);
-vertex(44, 81.1875);
-vertex(54, 85.1875);
-vertex(58, 22.1875);
-vertex(50, 37.1875);
-vertex(45, 49.1875);
-vertex(49, 61.1875);
-vertex(57, 70.1875);
-vertex(65, 80.1875);
-vertex(66, 87.1875);
-vertex(77, 87.1875);
-vertex(120, 47.1875);
-vertex(125, 33.1875);
-vertex(130, 24.1875);
-vertex(139, 16.1875);
-vertex(153, 9.1875);
-vertex(168, 9.1875);
-vertex(184, 14.1875);
-vertex(195, 22.1875);
-vertex(199, 33.1875);
-vertex(203, 49.1875);
-vertex(122, 60.1875);
-beginShape(); l from coldplay
-vertex(440, 28.1875);
-vertex(450, 25.1875);
-vertex(462, 25.1875);
-vertex(469, 25.1875);
-vertex(479, 28.1875);
-vertex(490, 34.1875);
-vertex(493, 44.1875);
-vertex(495, 54.1875);
-vertex(495, 71.1875);
-vertex(495, 85.1875);
-vertex(505, 75.1875);
-vertex(512, 60.1875);
-vertex(511, 43.1875);
-vertex(503, 29.1875);
-vertex(491, 17.1875);
-vertex(478, 12.1875);
-vertex(465, 12.1875);
-vertex(451, 16.1875);
-endShape();
-beginShape();a from colplay
-vertex(560, 19.1875);
-vertex(552, 25.1875);
-vertex(546, 32.1875);
-vertex(546, 43.1875);
-vertex(546, 53.1875);
-vertex(549, 62.1875);
-vertex(553, 70.1875);
-vertex(557, 73.1875);
-vertex(568, 79.1875);
-vertex(576, 82.1875);
-vertex(591, 84.1875);
-vertex(604, 82.1875);
-vertex(619, 70.1875);
-vertex(554, 32.1875);
-vertex(554, 41.1875);
-vertex(559, 54.1875);
-vertex(565, 63.1875);
-vertex(572, 71.1875);
-vertex(583, 77.1875);
-vertex(598, 75.1875);
-vertex(612, 74.1875);
-endShape();
-beginShape(); y from coldplay
-vertex(764, 11.1875);
-vertex(764, 21.1875);
-vertex(776, 25.1875);
-vertex(782, 35.1875);
-vertex(789, 47.1875);
-vertex(789, 60.1875);
-vertex(787, 72.1875);
-vertex(773, 81.1875);
-vertex(756, 91.1875);
-vertex(781, 94.1875);
-vertex(795, 82.1875);
-vertex(805, 69.1875);
-vertex(807, 51.1875);
-vertex(802, 32.1875);
-vertex(789, 23.1875);
-vertex(773, 12.1875);
-endShape();
+vertex(290, 76.1875);
+vertex(281, 76.1875);
+vertex(275, 72.1875);
+vertex(267, 67.1875);
+vertex(263, 60.1875);
+vertex(259, 51.1875);
+vertex(259, 44.1875);
+vertex(264, 33.1875);
+endShape(CLOSE);
+    beginShape();//d form coldplay
+vertex(336, 29.1875);
+vertex(344, 26.1875);
+vertex(355, 28.1875);
+vertex(365, 32.1875);
+vertex(372, 41.1875);
+vertex(376, 53.1875);
+vertex(375, 65.1875);
+vertex(371, 74.1875);
+vertex(364, 80.1875);
+vertex(355, 84.1875);
+vertex(345, 86.1875);
+vertex(337, 85.1875);
+vertex(344, 80.1875);
+vertex(351, 74.1875);
+vertex(356, 64.1875);
+vertex(358, 50.1875);
+vertex(355, 42.1875);
+vertex(348, 34.1875);
+vertex(341, 30.1875);
+endShape(CLOSE);
+    beginShape();//p form coldplay
+vertex(404, 41.1875);
+vertex(415, 30.1875);
+vertex(428, 28.1875);
+vertex(439, 30.1875);
+vertex(447, 35.1875);
+vertex(453, 43.1875);
+vertex(458, 52.1875);
+vertex(458, 62.1875);
+vertex(456, 73.1875);
+vertex(450, 79.1875);
+vertex(445, 83.1875);
+vertex(450, 67.1875);
+vertex(449, 59.1875);
+vertex(446, 52.1875);
+vertex(438, 43.1875);
+vertex(430, 40.1875);
+vertex(420, 37.1875);
+endShape(CLOSE);
+    beginShape();//l from coldplay
+vertex(495, 30.1875);
+vertex(488, 38.1875);
+vertex(484, 50.1875);
+vertex(486, 65.1875);
+vertex(492, 74.1875);
+vertex(501, 80.1875);
+vertex(512, 85.1875);
+vertex(521, 84.1875);
+vertex(529, 80.1875);
+vertex(537, 75.1875);
+vertex(531, 76.1875);
+vertex(523, 77.1875);
+vertex(512, 77.1875);
+vertex(506, 73.1875);
+vertex(495, 65.1875);
+vertex(491, 54.1875);
+vertex(491, 44.1875);
+vertex(494, 34.1875);
+endShape(CLOSE);
+    beginShape();//a from coldplay
+vertex(563, 65.1875);
+vertex(564, 54.1875);
+vertex(568, 44.1875);
+vertex(574, 36.1875);
+vertex(583, 31.1875);
+vertex(593, 30.1875);
+vertex(602, 32.1875);
+vertex(609, 35.1875);
+vertex(616, 42.1875);
+vertex(621, 50.1875);
+vertex(623, 60.1875);
+vertex(623, 67.1875);
+vertex(618, 59.1875);
+vertex(613, 53.1875);
+vertex(606, 48.1875);
+vertex(600, 44.1875);
+vertex(590, 43.1875);
+vertex(580, 47.1875);
+vertex(571, 53.1875);
+vertex(567, 62.1875);
+endShape(CLOSE);
+    beginShape();//y from coldplay
+vertex(646, 30.1875);
+vertex(657, 36.1875);
+vertex(664, 42.1875);
+vertex(667, 49.1875);
+vertex(670, 57.1875);
+vertex(670, 66.1875);
+vertex(666, 74.1875);
+vertex(660, 80.1875);
+vertex(650, 86.1875);
+vertex(657, 88.1875);
+vertex(666, 86.1875);
+vertex(675, 79.1875);
+vertex(680, 70.1875);
+vertex(681, 60.1875);
+vertex(680, 50.1875);
+vertex(675, 43.1875);
+vertex(668, 36.1875);
+vertex(660, 31.1875);
+endShape(CLOSE);
+    beginShape();//cercle from coldplay
+vertex(687, 31.1875);
+vertex(696, 32.1875);
+vertex(701, 38.1875);
+vertex(699, 47.1875);
+vertex(692, 50.1875);
+vertex(684, 47.1875);
+vertex(681, 40.1875);
+vertex(683, 33.1875);
+endShape(CLOSE);
+   
+}
+
+function drawCrescentMoon() {
+   // Dibuix de la lluna creixent
+   beginShape();
+curveVertex(107, 110.1875);
+curveVertex(105, 116.1875);
+curveVertex(104, 122.1875);
+curveVertex(103, 127.1875);
+curveVertex(103, 132.1875);
+curveVertex(105, 138.1875);
+curveVertex(107, 142.1875);
+curveVertex(110, 147.1875);
+curveVertex(113, 154.1875);
+curveVertex(118, 160.1875);
+curveVertex(124, 167.1875);
+curveVertex(130, 172.1875);
+curveVertex(135, 177.1875);
+curveVertex(139, 183.1875);
+curveVertex(144, 189.1875);
+curveVertex(149, 194.1875);
+curveVertex(155, 197.1875);
+curveVertex(161, 200.1875);
+curveVertex(168, 202.1875);
+curveVertex(174, 203.1875);
+curveVertex(180, 203.1875);
+curveVertex(187, 202.1875);
+curveVertex(193, 200.1875);
+curveVertex(199, 197.1875);
+curveVertex(203, 192.1875);
+curveVertex(208, 185.1875);
+curveVertex(211, 178.1875);
+curveVertex(215, 171.1875);
+curveVertex(217, 164.1875);
+curveVertex(220, 157.1875);
+curveVertex(223, 150.1875);
+curveVertex(226, 143.1875);
+curveVertex(229, 137.1875);
+curveVertex(231, 129.1875);
+curveVertex(231, 120.1875);
+curveVertex(228, 113.1875);
+curveVertex(224, 106.1875);
+curveVertex(221, 100.1875);
+curveVertex(219, 97.1875);
+curveVertex(222, 95.1875);
+curveVertex(224, 94.1875);
+curveVertex(228, 92.1875);
+curveVertex(232, 91.1875);
+curveVertex(237, 89.1875);
+curveVertex(243, 86.1875);
+curveVertex(248, 84.1875);
+curveVertex(251, 85.1875);
+curveVertex(255, 86.1875);
+curveVertex(259, 87.1875);
+curveVertex(262, 87.1875);
+curveVertex(266, 83.1875);
+curveVertex(268, 77.1875);
+curveVertex(265, 72.1875);
+curveVertex(259, 70.1875);
+curveVertex(253, 71.1875);
+curveVertex(251, 73.1875);
+curveVertex(250, 76.1875);
+curveVertex(242, 78.1875);
+curveVertex(235, 78.1875);
+curveVertex(228, 78.1875);
+curveVertex(220, 78.1875);
+curveVertex(213, 78.1875);
+curveVertex(211, 71.1875);
+curveVertex(207, 66.1875);
+curveVertex(205, 60.1875);
+curveVertex(201, 55.1875);
+curveVertex(196, 51.1875);
+curveVertex(191, 47.1875);
+curveVertex(185, 45.1875);
+curveVertex(178, 44.1875);
+curveVertex(172, 43.1875);
+curveVertex(166, 44.1875);
+curveVertex(161, 44.1875);
+curveVertex(155, 44.1875);
+curveVertex(149, 46.1875);
+curveVertex(144, 48.1875);
+curveVertex(140, 52.1875);
+curveVertex(135, 55.1875);
+curveVertex(130, 58.1875);
+curveVertex(127, 63.1875);
+curveVertex(125, 68.1875);
+curveVertex(122, 72.1875);
+curveVertex(121, 76.1875);
+curveVertex(119, 79.1875);
+curveVertex(118, 84.1875);
+curveVertex(117, 87.1875);
+curveVertex(111, 88.1875);
+curveVertex(105, 90.1875);
+curveVertex(99, 90.1875);
+curveVertex(93, 90.1875);
+curveVertex(88, 90.1875);
+curveVertex(84, 86.1875);
+curveVertex(77, 83.1875);
+curveVertex(71, 84.1875);
+curveVertex(67, 87.1875);
+curveVertex(66, 91.1875);
+curveVertex(66, 95.1875);
+curveVertex(67, 98.1875);
+curveVertex(69, 102.1875);
+curveVertex(73, 103.1875);
+curveVertex(77, 103.1875);
+curveVertex(81, 101.1875);
+curveVertex(84, 97.1875);
+curveVertex(86, 98.1875);
+curveVertex(90, 99.1875);
+curveVertex(94, 101.1875);
+curveVertex(96, 102.1875);
+curveVertex(100, 103.1875);
+curveVertex(105, 105.1875);
+curveVertex(109, 106.1875);
+curveVertex(106, 112.1875);
+endShape(CLOSE);
+    beginShape();
+curveVertex(175, 101.1875);
+curveVertex(170, 103.1875);
+curveVertex(166, 107.1875);
+curveVertex(162, 110.1875);
+curveVertex(160, 113.1875);
+curveVertex(158, 117.1875);
+curveVertex(158, 120.1875);
+curveVertex(157, 124.1875);
+curveVertex(157, 128.1875);
+curveVertex(158, 131.1875);
+curveVertex(159, 135.1875);
+curveVertex(161, 138.1875);
+curveVertex(163, 141.1875);
+curveVertex(165, 143.1875);
+curveVertex(168, 146.1875);
+curveVertex(172, 148.1875);
+curveVertex(177, 150.1875);
+curveVertex(182, 151.1875);
+curveVertex(187, 151.1875);
+curveVertex(192, 149.1875);
+curveVertex(196, 146.1875);
+curveVertex(199, 141.1875);
+curveVertex(202, 137.1875);
+curveVertex(205, 132.1875);
+curveVertex(205, 127.1875);
+curveVertex(205, 121.1875);
+curveVertex(203, 115.1875);
+curveVertex(200, 110.1875);
+curveVertex(195, 105.1875);
+curveVertex(190, 102.1875);
+curveVertex(184, 101.1875);
+curveVertex(179, 100.1875);
+endShape(CLOSE);
+    beginShape();
+curveVertex(138, 139.1875);
+curveVertex(140, 143.1875);
+curveVertex(141, 147.1875);
+curveVertex(143, 151.1875);
+curveVertex(145, 154.1875);
+curveVertex(147, 158.1875);
+curveVertex(150, 163.1875);
+curveVertex(153, 168.1875);
+curveVertex(156, 174.1875);
+curveVertex(161, 179.1875);
+curveVertex(166, 184.1875);
+curveVertex(172, 187.1875);
+curveVertex(177, 188.1875);
+curveVertex(182, 189.1875);
+curveVertex(188, 188.1875);
+curveVertex(193, 186.1875);
+curveVertex(197, 183.1875);
+curveVertex(200, 179.1875);
+curveVertex(202, 174.1875);
+curveVertex(204, 169.1875);
+curveVertex(206, 165.1875);
+curveVertex(207, 160.1875);
+curveVertex(210, 155.1875);
+curveVertex(212, 150.1875);
+curveVertex(214, 145.1875);
+curveVertex(215, 140.1875);
+curveVertex(214, 140.1875);
+curveVertex(212, 143.1875);
+curveVertex(210, 146.1875);
+curveVertex(209, 150.1875);
+curveVertex(207, 153.1875);
+curveVertex(204, 157.1875);
+curveVertex(201, 161.1875);
+curveVertex(197, 164.1875);
+curveVertex(192, 166.1875);
+curveVertex(186, 168.1875);
+curveVertex(181, 169.1875);
+curveVertex(175, 168.1875);
+curveVertex(169, 167.1875);
+curveVertex(162, 164.1875);
+curveVertex(157, 160.1875);
+curveVertex(152, 156.1875);
+curveVertex(148, 152.1875);
+curveVertex(143, 148.1875);
+curveVertex(141, 144.1875);
+endShape(CLOSE);
+}
+
+function drawRainbow() {
+  beginShape();
+curveVertex(249, 330.1875);
+curveVertex(244, 328.1875);
+curveVertex(239, 326.1875);
+curveVertex(234, 324.1875);
+curveVertex(229, 322.1875);
+curveVertex(225, 320.1875);
+curveVertex(221, 317.1875);
+curveVertex(216, 315.1875);
+curveVertex(211, 313.1875);
+curveVertex(207, 309.1875);
+curveVertex(203, 305.1875);
+curveVertex(200, 301.1875);
+curveVertex(196, 298.1875);
+curveVertex(193, 294.1875);
+curveVertex(191, 290.1875);
+curveVertex(188, 286.1875);
+curveVertex(186, 282.1875);
+curveVertex(183, 278.1875);
+curveVertex(181, 273.1875);
+curveVertex(179, 269.1875);
+curveVertex(177, 265.1875);
+curveVertex(176, 261.1875);
+curveVertex(174, 256.1875);
+curveVertex(174, 252.1875);
+curveVertex(172, 247.1875);
+curveVertex(172, 242.1875);
+curveVertex(171, 237.1875);
+curveVertex(171, 233.1875);
+curveVertex(170, 228.1875);
+curveVertex(170, 223.1875);
+curveVertex(170, 218.1875);
+curveVertex(171, 214.1875);
+curveVertex(171, 210.1875);
+curveVertex(171, 205.1875);
+curveVertex(172, 200.1875);
+curveVertex(171, 196.1875);
+curveVertex(172, 193.1875);
+curveVertex(173, 189.1875);
+curveVertex(174, 184.1875);
+curveVertex(175, 180.1875);
+curveVertex(176, 176.1875);
+curveVertex(177, 172.1875);
+curveVertex(179, 168.1875);
+curveVertex(181, 164.1875);
+curveVertex(183, 159.1875);
+curveVertex(185, 154.1875);
+curveVertex(188, 150.1875);
+curveVertex(190, 145.1875);
+curveVertex(192, 141.1875);
+curveVertex(195, 138.1875);
+curveVertex(198, 134.1875);
+curveVertex(201, 130.1875);
+curveVertex(203, 127.1875);
+curveVertex(207, 124.1875);
+curveVertex(210, 121.1875);
+curveVertex(213, 118.1875);
+curveVertex(216, 115.1875);
+curveVertex(220, 112.1875);
+curveVertex(223, 110.1875);
+curveVertex(227, 107.1875);
+curveVertex(231, 105.1875);
+curveVertex(235, 103.1875);
+curveVertex(239, 101.1875);
+curveVertex(243, 99.1875);
+curveVertex(247, 98.1875);
+curveVertex(251, 97.1875);
+curveVertex(255, 96.1875);
+curveVertex(260, 95.1875);
+curveVertex(265, 94.1875);
+curveVertex(270, 93.1875);
+curveVertex(274, 93.1875);
+curveVertex(278, 92.1875);
+curveVertex(282, 92.1875);
+curveVertex(287, 91.1875);
+curveVertex(292, 92.1875);
+curveVertex(296, 92.1875);
+curveVertex(300, 91.1875);
+curveVertex(305, 91.1875);
+curveVertex(309, 91.1875);
+curveVertex(314, 92.1875);
+curveVertex(318, 92.1875);
+curveVertex(322, 93.1875);
+curveVertex(327, 94.1875);
+curveVertex(332, 96.1875);
+curveVertex(337, 97.1875);
+curveVertex(341, 98.1875);
+curveVertex(346, 99.1875);
+curveVertex(351, 102.1875);
+curveVertex(355, 104.1875);
+curveVertex(359, 105.1875);
+curveVertex(362, 108.1875);
+curveVertex(366, 110.1875);
+curveVertex(370, 112.1875);
+curveVertex(373, 115.1875);
+curveVertex(377, 117.1875);
+curveVertex(380, 120.1875);
+curveVertex(383, 123.1875);
+curveVertex(386, 126.1875);
+curveVertex(389, 130.1875);
+curveVertex(392, 134.1875);
+curveVertex(395, 137.1875);
+curveVertex(396, 141.1875);
+curveVertex(399, 145.1875);
+curveVertex(403, 150.1875);
+curveVertex(403, 153.1875);
+curveVertex(406, 157.1875);
+curveVertex(407, 161.1875);
+curveVertex(408, 165.1875);
+curveVertex(409, 169.1875);
+curveVertex(410, 174.1875);
+curveVertex(412, 178.1875);
+curveVertex(412, 182.1875);
+curveVertex(412, 187.1875);
+curveVertex(413, 191.1875);
+curveVertex(414, 195.1875);
+curveVertex(414, 200.1875);
+curveVertex(414, 204.1875);
+curveVertex(414, 209.1875);
+curveVertex(413, 214.1875);
+curveVertex(413, 218.1875);
+curveVertex(413, 223.1875);
+curveVertex(412, 228.1875);
+curveVertex(412, 233.1875);
+curveVertex(412, 237.1875);
+curveVertex(411, 241.1875);
+curveVertex(410, 245.1875);
+curveVertex(409, 249.1875);
+curveVertex(409, 254.1875);
+curveVertex(406, 257.1875);
+curveVertex(405, 261.1875);
+curveVertex(404, 265.1875);
+curveVertex(402, 269.1875);
+curveVertex(400, 273.1875);
+curveVertex(399, 278.1875);
+curveVertex(397, 281.1875);
+curveVertex(395, 285.1875);
+curveVertex(393, 289.1875);
+curveVertex(392, 293.1875);
+curveVertex(390, 296.1875);
+curveVertex(387, 299.1875);
+curveVertex(385, 303.1875);
+curveVertex(381, 305.1875);
+curveVertex(376, 308.1875);
+curveVertex(371, 311.1875);
+curveVertex(366, 314.1875);
+curveVertex(362, 317.1875);
+curveVertex(355, 320.1875);
+curveVertex(349, 323.1875);
+curveVertex(343, 325.1875);
+curveVertex(337, 326.1875);
+curveVertex(330, 328.1875);
+curveVertex(325, 329.1875);
+curveVertex(317, 332.1875);
+curveVertex(311, 333.1875);
+curveVertex(305, 334.1875);
+curveVertex(297, 334.1875);
+curveVertex(290, 334.1875);
+curveVertex(284, 334.1875);
+curveVertex(277, 334.1875);
+curveVertex(269, 334.1875);
+curveVertex(262, 332.1875);
+curveVertex(254, 331.1875);
+endShape(CLOSE);
+}
+
+function handleFileUpload(event) {
+   let file = event.target.files[0];
+   if (file && file.type.startsWith('audio/')) {
+       let fileURL = URL.createObjectURL(file);
+
+       // Update audio player with the new audio file
+       const audioElement = document.getElementById('player');
+       const defaultAudioElement = document.getElementById('default-player');
+       audioElement.src = fileURL;
+       defaultAudioElement.src = fileURL;
+
+       if (player) {
+           player.source = {
+               type: 'audio',
+               sources: [{ src: fileURL, type: file.type }]
+           };
+       }
+
+       // Update song title
+       const songTitleElement = document.getElementById('song-title');
+       songTitleElement.textContent = file.name;
+
+       // Load sound for p5.js analysis
+       loadSound(fileURL, soundLoaded);
+   } else {
+       console.error('Please upload a valid audio file');
+   }
+}
+
+function soundLoaded(loadedSong) {
+   if (song && song.isPlaying()) {
+       song.stop();
+   }
+   song = loadedSong;
+   song.play();
+   amplitude.setInput(song);
+   fft.setInput(song);
+}
+</script>
+
+</body>
+</html>
