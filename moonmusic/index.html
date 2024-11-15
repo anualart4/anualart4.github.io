@@ -174,7 +174,6 @@ function draw() {
     let spectrum = fft.analyze();
     let bass = fft.getEnergy("bass");
     let treble = fft.getEnergy("treble");
-
     let r = map(bass, 0, 255, 50, 255);
     let b = map(treble, 0, 255, 50, 255);
     let g = map(level, 0, 1, 50, 255);
