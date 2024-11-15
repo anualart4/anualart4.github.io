@@ -145,7 +145,6 @@ function setup() {
         let y = random(height);
         shapes.push({x: x, y: y});
     }
-
     let fileInput = document.getElementById('audio-upload');
     fileInput.addEventListener('change', handleFileUpload);
 
@@ -153,7 +152,6 @@ function setup() {
     shapeSelector.addEventListener('change', function() {
         selectedShape = this.value;
     });
-
     // Initialize Plyr with fallback
     try {
         player = new Plyr('#player');
