@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>Web d'Ariadna</title>
+    <style>body {
+    padding: 0; /* Elimina l'espai extra al voltant del cos */
+}
+.container-fluid {
+    max-width: 100%; /* Assegura que la navbar ocupa tota l'amplada */
+}
+    .navbar {
+    padding-left: 0; /* Elimina el padding esquerra de la navbar */
+}
 
+.logo {
+    margin-right: 20px; /* Ajustar el marge si vols separar el logo del text */
+    margin-left: 0; /* Assegurar que no hi hagi marge a l'esquerra */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+}
+
+.brand-text {
+    white-space: nowrap; /* Això assegura que el text no es trenqui en múltiples línies */
+    font-size: 1.25rem; /* Ajusta la mida de la font si és necessari */
+}  
+.content-container {
+            margin-left: 10px;
+            margin-right: 10px; /* Marges laterals ajustats */
+            margin-top: 20px; /* Afegeix espai superior entre el contingut i la barra de menú */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+       <a class="navbar-brand d-flex align-items-center" href="#">
+    <img src="logo.png" alt="Logo" width="50" class="logo">
+    <span class="brand-text">Web d'Ariadna</span>
+</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inici</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tema 1</a>
+                    
+                </li>Apartir dels logos i dels simbols de l'album de Coldplay farem que aquest símbols canvien de color i tamany i es mouin al ritme de la música, amb més volum la freqüència.Es a dir farem la Creació d'una obra s'art. 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Projectes</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        
+                        <a class="dropdown-item" href="https://anualart4.github.io/aliment">Ecològic?</a>
+                        <a class="dropdown-item" href="https://anualart4.github.io/coldplay">Coldplay</a>
+                        <a class="dropdown-item" href="https://anualart4.github.io/coldplay">Moonmusic</a>
+                        <a class="dropdown-item" href="https://anualart4.github.io/valentine">Jean Valentine</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tema 2</a>
+                </li>
+            </h1>Explicació del codi</h1>
+              <pre><code>
+                let fft;//crea espai a la memoria anomenat fft
+                fft= new P5.FFT();//crea objecte de la classefft que te totes les característiques d'una transformada de Fourier ràpida
+                // let ariadna ; cearia un espai a la majoria per un objecte anomenat ariadna
+                // ariadnahomosapiens=new Homosapiens(); crearia un objecte de la classe homosapiens amb totes les seves caracterítiques
+                //per exemple el metode getEnergy() faria la caracteristica humana de menjar
+                // si vull fer menjar a l'ariadna he d'escriure ariadna.gatEnergy(); aicò es diu el metode del punt,que al posar un punt
+                //aplico un metode,per fer-lo estudiar ariadna.estudy().Study i Energy son metodes de la classe Homosapiens
+                   let bass=fft.getEnergy("bass");// crea variable greu
+                //getEnery ("bass") calcula l'energia de totes les frecuencies greus i dona un número entre 0 i 255 i aquest númro el
+                //guarda en una variable anomenada bass
+                let trable=fft.getEnergy("treble");//crea variable aguda
+                //calcula la energia de totes les frequencies agudes i dona un numero entre 0 i 255ni el guardaen trebe
+                let r=map(bass,0,255,50,255);//crea color vermell
+                // la linie anterior converteix els sons aguts en tons vermellosos perque l'hem anomenat r de red, ara mateix no es
+                 un color,
+                // es un numero per quan faci fill (r,0,0); donara tons vermellosos, per que el fill omple un color.
+                // si poses fill(bass,0,0); també funcionaria   , per que el bass va entre 0 i 255 i el color també              
+                let g= map(treble,0,255,50,255);// crea color verd
+                // fem un truc de mapejar els valors petits de bass a valors una mica més grans de r cambien el 0 per 50.
+               </code></pre>
+        </div>
+    </div>
+</nav>
+
+<!-- Contingut principal -->
+<div class="content-container">
+    <h1>Màquina Jean Valentine</h1>
+    <p>Durant la setmana de la ciència de 20024 organitzada pel departament  <a href="https://scholar.google.com">Google acadèmic</a></p>
+    <p>A continuació veuràs un llistat amb diferents projectes que farem durant el curs:</p>
+    <ul>
+        <li>Creació d'una obra d'art geomètrica interactiva que reaccioni a la meva veu a través d'un micròfon i a diferents tecles del teclat, al ratolí, que faci moviments repetitius amb sin i cos, moviments aleatoris amb random... Utilitzarem p5.js.</li>
+        <li>Aliments ecològics i convencionals amb C++.</li>
+        <li>Contaminació atmosfèrica d'una ciutat catalana amb R.</li> 
+    </ul>
+</div>
+
+<!-- Scripts necessaris -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
