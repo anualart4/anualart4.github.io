@@ -1,11 +1,21 @@
 <html>
-<head> <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js" 
-         integrity="sha512-I0Pwwz3PPNQkWes+rcSoQqikKFfRmTfGQrcNzZbm8ALaUyJuFdyRinl805shE8xT6iEWsWgvRxdXb3yhQNXKo  A  ==" 
-         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!--Les línies de més amunt connecten el nostre codi  amb p5.js de forma que entendrà aquest llenguatge , per exemple el·lipse ens dibuxrà una el·lipse , arc ens dibuxrà un arc, fill 
-  ens omplirà de color, mouseX ens permetrà moure amb el ratolí ... Integrity es un número que està en base 64 que  (lletres matuscúscules, llettres majúscules  que permet comprovar que 
-  p5.js és carrega bé.-->
+<head>
+
 </head>
 <body>
+<script>
+function setup () {
+createCanvas (500, 500);// mesura de la zona de dibuix
+}
+function draw () {
+background (146, 189, 238)://fons blau de tot el dibuix
+feill (232, 226, 180);// color de la cara
+ellipse (250, 250, 150, 220);// cara
+feill (86, 211, 116);// color de l'ull dret
+ellipse (190, 215, 70, 49);//ull dreta
+feill (86, 211, 116);// color de l'ull esquerra
+ellipse (310, 215, 70, 49);// ull esquerra
+}
+</script>
 </body>
-</html
+</html>
