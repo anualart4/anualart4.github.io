@@ -1,651 +1,170 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="UTF-8">
-  <title>Art Geomètric Amb Expressió Facial</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/ml5js/Intro-ML-Arts-IMA@ml5-build-10-7-19/ml5_build/ml5.min.js"></script>
-  <style>
-    /* Estil general del cos de la pàgina */
-    body {
-      margin: 0; /* sense marges externs */
-      padding: 0; /* sense espais interns */
-      background-color: #f4f4f4; /* color de fons gris clar */
-      display: flex; /* fa servir flexbox per alinear */
-      justify-content: center; /* centra horitzontalment */
-      align-items: center; /* centra verticalment */
-      height: 100vh; /* alçada de tota la pantalla */
-    }
+    <meta charset="UTF-8">
+    <title>Art Geomètric Amb Expressió Facial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ml5js/Intro-ML-Arts-IMA@ml5-build-10-7-19/ml5_build/ml5.min.js"></script>
+    <style>
+        /* Estil general del cos de la pàgina */
+        body {
+            margin: 0; /* sense marges externs */
+            padding: 0; /* sense espais interns */
+            background-color: #f4f4f4; /* color de fons gris clar */
+            display: flex; /* fa servir flexbox per alinear */
+            justify-content: center; /* centra horitzontalment */
+            align-items: center; /* centra verticalment */
+            height: 100vh; /* alçada de tota la pantalla */
+        }
 
-    /* Pantalla de càrrega quan els models encara es carreguen */
-    #loading-screen {
-      position: fixed; /* fixa la posició a la pantalla */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.9); /* blanc amb transparència */
-      display: flex;
-      flex-direction: column; /* columna vertical */
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      font-size: 18px;
-      color: #333; /* gris fosc */
-      z-index: 10; /* per sobre de tot */
-    }
+        /* Pantalla de càrrega quan els models encara es carreguen */
+        #loading-screen {
+            position: fixed; /* fixa la posició a la pantalla */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9); /* blanc amb transparència */
+            display: flex;
+            flex-direction: column; /* columna vertical */
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #333; /* gris fosc */
+            z-index: 10; /* per sobre de tot */
+        }
 
-    /* Rodona animada de càrrega */
-    .loader {
-      width: 50px;
-      height: 50px;
-      border: 6px solid #3498db; /* blau */
-      border-top: 6px solid transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 10px;
-    }
+        /* Rodona animada de càrrega */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 6px solid #3498db; /* blau */
+            border-top: 6px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
 
-    /* Animació de gir */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+        /* Animació de gir */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <div id="loading-screen">
-    <div class="loader"></div>
-    <p>Carregant models, si us plau, espera...</p>
-  </div>
-  <script>
-    // Variables globals
-    let faceapi, detections = [], video;
-    let modelsMostrats = false;
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Carregant models, si us plau, espera...</p>
+    </div>
+    <script>
+        // Variables globals
+        let faceapi, detections = [], video;
+        let modelsMostrats = false;
 
-    // Mida virtual que es manté proporcional a qualsevol pantalla
-    const VIRTUAL_W = 600;
-    const VIRTUAL_H = 703;
+        // Mida virtual que es manté proporcional a qualsevol pantalla
+        const VIRTUAL_W = 600;
+        const VIRTUAL_H = 703;
 
-    // Funció que es crida al començar
-    function setup() {
-      createCanvas(windowWidth, windowHeight); // crea una zona de dibuix de la mida de la finestra
-      video = createCapture(VIDEO);            // activa la webcam
-      video.size(480, 480);                    // estableix la mida del vídeo
-      video.hide();                            // amaga el vídeo per defecte
+        // Funció que es crida al començar
+        function setup() {
+            createCanvas(windowWidth, windowHeight); // crea una zona de dibuix de la mida de la finestra
+            video = createCapture(VIDEO);             // activa la webcam
+            video.size(480, 480);                     // estableix la mida del vídeo
+            video.hide();                             // amaga el vídeo per defecte
 
-      // Configura els paràmetres del reconeixement facial
-      const options = {
-        withLandmarks: true,
-        withExpressions: true,
-        withDescriptors: false
-      };
-      faceapi = ml5.faceApi(video, options, modelReady); // inicialitza el model amb la webcam
-    }
+            // Configura els paràmetres del reconeixement facial
+            const options = {
+                withLandmarks: true,
+                withExpressions: true,
+                withDescriptors: false
+            };
+            faceapi = ml5.faceApi(video, options, modelReady); // inicialitza el model amb la webcam
+        }
 
-    // Redimensiona el canvas si canvia la mida de la finestra
-    function windowResized() {
-      resizeCanvas(windowWidth, windowHeight);
-    }
+        // Redimensiona el canvas si canvia la mida de la finestra
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
 
-    // Quan el model està carregat correctament
-    function modelReady() {
-      faceapi.detect(gotResults); // comença a detectar cares
-    }
+        // Quan el model està carregat correctament
+        function modelReady() {
+            faceapi.detect(gotResults); // comença a detectar cares
+        }
 
-    // Quan hi ha resultats del model
-    function gotResults(err, result) {
-      if (err) return console.error(err); // mostra error si hi ha
-      detections = result; // desa les dades de la detecció
-      if (!modelsMostrats) {
-        document.getElementById("loading-screen").style.display = "none";
-        modelsMostrats = true;
-      }
-      faceapi.detect(gotResults); // torna a detectar de forma continua
-    }
+        // Quan hi ha resultats del model
+        function gotResults(err, result) {
+            if (err) return console.error(err); // mostra error si hi ha
+            detections = result; // desa les dades de la detecció
+            if (!modelsMostrats) {
+                document.getElementById("loading-screen").style.display = "none";
+                modelsMostrats = true;
+            }
+            faceapi.detect(gotResults); // torna a detectar de forma continua
+        }
 
-    // Funció de dibuix
-    function draw() {
-      background(255); // fons blanc
+        // Funció de dibuix
+        function draw() {
+            background(255); // fons blanc
 
-      // Inicialitzem l'estat emocional detectat
-      let dominant = "neutral", intensity = 0;
-      if (detections.length > 0) {
-        let expr = detections[0].expressions;
-        dominant = Object.keys(expr).reduce((a, b) => expr[a] > expr[b] ? a : b);
-        intensity = expr[dominant];
-      }
+            // Inicialitzem l'estat emocional detectat
+            let dominant = "neutral", intensity = 0;
+            if (detections.length > 0) {
+                let expr = detections[0].expressions;
+                dominant = Object.keys(expr).reduce((a, b) => expr[a] > expr[b] ? a : b);
+                intensity = expr[dominant];
+            }
 
-      // Calcular escala i marges per centrar el dibuix virtual a la pantalla
-      let scaleFactor = min(width / VIRTUAL_W, height / VIRTUAL_H);
-      let offsetX = (width - VIRTUAL_W * scaleFactor) / 2;
-      let offsetY = (height - VIRTUAL_H * scaleFactor) / 2;
+            // Calcular escala i marges per centrar el dibuix virtual a la pantalla
+            let scaleFactor = min(width / VIRTUAL_W, height / VIRTUAL_H);
+            let offsetX = (width - VIRTUAL_W * scaleFactor) / 2;
+            let offsetY = (height - VIRTUAL_H * scaleFactor) / 2;
 
-      // Aplicar transformacions per mantenir el dibuix centrat i escalat
-      push(); // desa l'estat de transformació
-      translate(offsetX, offsetY); // desplaça l'origen
-      scale(scaleFactor); // redimensiona proporcionalment
-      drawArt(dominant, intensity); // dibuixa la figura segons l'expressió
-      pop(); // recupera l'estat anterior
+            // Aplicar transformacions per mantenir el dibuix centrat i escalat
+            push(); // desa l'estat de transformació
+            translate(offsetX, offsetY); // desplaça l'origen
+            scale(scaleFactor); // redimensiona proporcionalment
+            drawArt(dominant, intensity); // dibuixa la figura segons l'expressió
+            pop(); // recupera l'estat anterior
 
-      // Mostra el text amb l'expressió dominant (fora de transformacions)
-      noStroke();
-      fill(44,169,225);
-      textSize(32);
-      textAlign(CENTER, TOP);
-      text("Expressió: " + dominant, width / 2, 10);
+            // Mostra el text amb l'expressió dominant (fora de transformacions)
+            noStroke();
+            fill(44,169,225);
+            textSize(32);
+            textAlign(CENTER, TOP);
+            text("Expressió: " + dominant, width / 2, 10);
 
-      // Mostra el vídeo si hi ha detecció
-      if (detections.length > 0) {
-        image(video, width - 140, height - 140, 120, 120);
-      }
-    }
+            // Mostra el vídeo si hi ha detecció
+            if (detections.length > 0) {
+                image(video, width - 140, height - 140, 120, 120);
+            }
+        }
 
-    // Dibuixa diferents figures depenent de l'estat emocional
-    function drawArt(dominant, intensity) {
-      noFill();
-      strokeWeight(4);
+        // Dibuixa diferents figures depenent de l'estat emocional
+        function drawArt(dominant, intensity) {
+            noFill();
+            strokeWeight(4);
 
-      switch (dominant) {
-        case 'happy': 
-          beginShape();//cap
-vertex(288.0028409957886, 125.09090805053711);
-vertex(259.0028409957886, 135.0909080505371);
-vertex(231.00284099578857, 150.0909080505371);
-vertex(212.00284099578857, 179.0909080505371);
-vertex(196.00284099578857, 215.0909080505371);
-vertex(193.00284099578857, 229.72727394104004);
-vertex(191.00284099578857, 240.72727394104004);
-vertex(191.00284099578857, 257.72727394104004);
-vertex(191.00284099578857, 276.72727394104004);
-vertex(186.00284099578857, 297.72727394104004);
-vertex(191.00284099578857, 321.72727394104004);
-vertex(195.00284099578857, 349.72727394104004);
-vertex(207.00284099578857, 382.72727394104004);
-vertex(213.00284099578857, 403.72727394104004);
-vertex(223.00284099578857, 413.72727394104004);
-vertex(244.00284099578857, 422.72727394104004);
-vertex(263.0028409957886, 418.7272644042969);
-vertex(279.0028409957886, 416.7272644042969);
-vertex(298.0028409957886, 413.7272644042969);
-vertex(324.0028409957886, 402.7272644042969);
-vertex(348.0028409957886, 385.7272644042969);
-vertex(360.0028409957886, 363.7272644042969);
-vertex(360.0028409957886, 343.09090423583984);
-vertex(370.0028409957886, 355.09090423583984);
-vertex(385.0028409957886, 345.09090423583984);
-vertex(401.0028409957886, 326.09090423583984);
-vertex(419.0028409957886, 317.09090423583984);
-vertex(431.0028409957886, 297.09090423583984);
-vertex(431.0028409957886, 272.09090423583984);
-vertex(434.0028409957886, 242.09090423583984);
-vertex(439.0028409957886, 217.09090423583984);
-vertex(423.0028409957886, 189.09090423583984);
-vertex(392.0028409957886, 162.09090423583984);
-vertex(348.0028409957886, 134.09090423583984);
-vertex(315.0028409957886, 123.09090423583984);
-vertex(292.0028409957886, 123.09090423583984);
-vertex(292.0028409957886, 123.09090423583984);
-endShape(CLOSE);
-          beginShape();//ull dreta
-vertex(254.00284099578857, 278.0909080505371);
-vertex(267.0028409957886, 270.0909080505371);
-vertex(282.0028409957886, 273.0909080505371);
-vertex(293.0028409957886, 280.0909080505371);
-vertex(291.0028409957886, 285.0909080505371);
-vertex(281.0028409957886, 288.0909080505371);
-vertex(269.0028409957886, 290.0909080505371);
-vertex(259.0028409957886, 282.0909080505371);
-vertex(253.00284099578857, 276.0909080505371);
-endShape(CLOSE);
-          beginShape();// ull esquerra
-vertex(219.00284099578857, 267.99999237060547);
-vertex(207.00284099578857, 258.99999237060547);
-vertex(196.00284099578857, 258.99999237060547);
-vertex(193.00284099578857, 265.99999237060547);
-vertex(203.00284099578857, 271.99999237060547);
-vertex(214.00284099578857, 272.99999237060547);
-vertex(217.00284099578857, 272.99999237060547);
-vertex(217.00284099578857, 272.99999618530273);
-endShape(CLOSE);
-          beginShape();//nas
-vertex(218.00284099578857, 257.81817626953125);
-vertex(221.00284099578857, 277.81817626953125);
-vertex(217.00284099578857, 292.81817626953125);
-vertex(208.00284099578857, 308.81817626953125);
-vertex(204.00284099578857, 322.81817626953125);
-vertex(213.00284099578857, 331.81817626953125);
-vertex(221.00284099578857, 336.81817626953125);
-vertex(238.00284099578857, 338.81817626953125);
-vertex(241.00284099578857, 325.81817626953125);
-vertex(236.00284099578857, 313.81817626953125);
-endShape(CLOSE);
-          beginShape();//llavis
-vertex(211.00284099578857, 365.0908966064453);
-vertex(209.00284099578857, 376.0908966064453);
-vertex(211.00284099578857, 381.0908966064453);
-vertex(215.00284099578857, 383.0908966064453);
-vertex(224.00284099578857, 384.0908966064453);
-vertex(231.00284099578857, 385.0908966064453);
-vertex(241.00284099578857, 382.0908966064453);
-vertex(247.00284099578857, 377.0908966064453);
-vertex(248.00284099578857, 369.0908966064453);
-vertex(234.00284099578857, 362.0908966064453);
-vertex(226.00284099578857, 359.0908966064453);
-vertex(218.00284099578857, 359.0908966064453);
-vertex(209.00284099578857, 358.0908966064453);
-vertex(214.00284099578857, 365.0908966064453);
-vertex(221.00284099578857, 369.0908966064453);
-vertex(234.00284099578857, 370.0908966064453);
-endShape(CLOSE);
-          beginShape();//coll
-vertex(280.0028409957886, 416.8181800842285);
-vertex(284.0028409957886, 423.8181800842285);
-vertex(287.0028409957886, 435.8181800842285);
-vertex(291.0028409957886, 441.8181800842285);
-vertex(302.0028409957886, 437.8181800842285);
-vertex(317.0028409957886, 427.8181800842285);
-vertex(338.0028409957886, 418.8181800842285);
-vertex(363.0028409957886, 411.8181800842285);
-vertex(380.0028409957886, 405.8181800842285);
-vertex(366.0028409957886, 396.8181800842285);
-vertex(359.0028409957886, 379.8181800842285);
-vertex(352.0028409957886, 384.5454406738281);
-vertex(338.0028409957886, 395.5454406738281);
-vertex(317.0028409957886, 404.5454406738281);
-vertex(300.0028409957886, 414.5454406738281);
-vertex(287.0028409957886, 413.5454406738281);
-vertex(279.0028409957886, 410.5454406738281);
-endShape(CLOSE);
-          beginShape();//roba
-vertex(451.0028409957886, 398.0908966064453);
-vertex(428.0028409957886, 389.0908966064453);
-vertex(398.0028409957886, 397.0908966064453);
-vertex(362.0028409957886, 410.0908966064453);
-vertex(326.0028409957886, 419.0908966064453);
-vertex(302.0028409957886, 433.0908966064453);
-vertex(288.0028409957886, 449.0908966064453);
-vertex(277.0028409957886, 461.0908966064453);
-vertex(271.0028409957886, 481.0908966064453);
-vertex(262.0028409957886, 500.0908966064453);
-vertex(253.00284099578857, 521.0908966064453);
-vertex(242.00284099578857, 541.0908966064453);
-vertex(242.00284099578857, 567.0908966064453);
-vertex(235.00284099578857, 577.8181762695312);
-vertex(225.00284099578857, 602.8181762695312);
-vertex(211.00284099578857, 632.8181762695312);
-vertex(197.00284099578857, 658.8181762695312);
-vertex(182.00284099578857, 698.8181762695312);
-vertex(211.00284099578857, 698.8181762695312);
-vertex(248.00284099578857, 700.8181762695312);
-vertex(295.0028409957886, 699.8181762695312);
-vertex(347.0028409957886, 698.8181762695312);
-vertex(394.0028409957886, 699.8181762695312);
-vertex(438.0028409957886, 698.8181762695312);
-vertex(486.0028409957886, 701.8181762695312);
-vertex(513.0028409957886, 697.8181762695312);
-vertex(509.0028409957886, 669.8181762695312);
-vertex(501.0028409957886, 638.8181762695312);
-vertex(489.0028409957886, 602.8181762695312);
-vertex(463.0028409957886, 570.8181762695312);
-vertex(464.0028409957886, 536.8181762695312);
-vertex(461.0028409957886, 498.81817626953125);
-vertex(463.0028409957886, 471.81817626953125);
-vertex(457.0028409957886, 433.81817626953125);
-vertex(454.0028409957886, 410.81817626953125);
-vertex(447.0028409957886, 393.81817626953125);
-endShape(CLOSE);
-          beginShape();//mocador
-vertex(200.00284099578857, 214.7272720336914);
-vertex(221.00284099578857, 202.7272720336914);
-vertex(245.00284099578857, 209.7272720336914);
-vertex(267.0028409957886, 218.7272720336914);
-vertex(295.0028409957886, 234.7272720336914);
-vertex(312.0028409957886, 249.7272720336914);
-vertex(336.0028409957886, 269.7272720336914);
-vertex(356.0028409957886, 289.7272720336914);
-vertex(375.0028409957886, 306.7272720336914);
-vertex(398.0028409957886, 332.7272720336914);
-vertex(410.0028409957886, 321.7272720336914);
-vertex(425.0028409957886, 315.7272720336914);
-vertex(432.0028409957886, 298.7272720336914);
-vertex(432.0028409957886, 265.7272720336914);
-vertex(437.0028409957886, 240.7272720336914);
-vertex(441.0028409957886, 216.7272720336914);
-vertex(440.0028409957886, 198.18181896209717);
-vertex(440.0028409957886, 164.18181896209717);
-vertex(442.0028409957886, 179.18181896209717);
-vertex(442.0028409957886, 196.18181896209717);
-vertex(442.0028409957886, 209.18181896209717);
-vertex(443.0028409957886, 227.18181896209717);
-vertex(446.0028409957886, 251.18181896209717);
-vertex(450.0028409957886, 287.18181896209717);
-vertex(452.0028409957886, 329.18181896209717);
-vertex(454.0028409957886, 368.18181896209717);
-vertex(457.0028409957886, 406.99999618530273);
-vertex(460.0028409957886, 442.99999618530273);
-vertex(464.0028409957886, 469.99999618530273);
-vertex(464.0028409957886, 499.99999618530273);
-vertex(464.0028409957886, 526.9999961853027);
-vertex(464.0028409957886, 556.9999961853027);
-vertex(462.0028409957886, 563.9999961853027);
-vertex(474.0028409957886, 563.9999961853027);
-vertex(488.0028409957886, 563.9999961853027);
-vertex(507.0028409957886, 563.9999961853027);
-vertex(516.0028409957886, 552.9999961853027);
-vertex(515.0028409957886, 534.9999961853027);
-vertex(532.0028409957886, 530.9999961853027);
-vertex(546.0028409957886, 530.9999961853027);
-vertex(564.0028409957886, 529.9999961853027);
-vertex(566.0028409957886, 510.99999618530273);
-vertex(567.0028409957886, 488.99999618530273);
-vertex(555.0028409957886, 464.99999618530273);
-vertex(538.0028409957886, 424.99999618530273);
-vertex(528.0028409957886, 380.99999618530273);
-vertex(511.0028409957886, 333.99999618530273);
-vertex(501.0028409957886, 298.99999618530273);
-vertex(486.0028409957886, 257.99999618530273);
-vertex(486.0028409957886, 236.99999618530273);
-vertex(480.0028409957886, 209.99999618530273);
-vertex(471.0028409957886, 177.99999618530273);
-vertex(472.0028409957886, 160.99999618530273);
-vertex(460.0028409957886, 131.99999618530273);
-vertex(436.0028409957886, 109.99999618530273);
-vertex(411.0028409957886, 90.99999618530273);
-vertex(387.0028409957886, 82.99999618530273);
-vertex(364.0028409957886, 84.99999618530273);
-vertex(342.0028409957886, 86.99999618530273);
-vertex(327.0028409957886, 102.99999618530273);
-vertex(325.0028409957886, 111.99999618530273);
-vertex(310.0028409957886, 112.99999618530273);
-vertex(297.0028409957886, 119.99999618530273);
-vertex(285.0028409957886, 123.99999618530273);
-vertex(259.0028409957886, 129.99999618530273);
-vertex(244.00284099578857, 139.99999618530273);
-vertex(225.00284099578857, 156.99999618530273);
-vertex(213.00284099578857, 170.99999618530273);
-vertex(202.00284099578857, 199.99999618530273);
-vertex(202.00284099578857, 206.99999618530273);
-vertex(202.00284099578857, 206.99999618530273);
-endShape(CLOSE);
-        
-          stroke(255,200,0); // groc
-          
-          fill(255, 35, 188);
-          beginShape();//perla
-vertex(369, 374.1875);
-vertex(361, 379.1875);
-vertex(361, 389.1875);
-vertex(365, 399.1875);
-vertex(375, 402.1875);
-vertex(385, 397.1875);
-vertex(388, 384.1875);
-vertex(382, 375.1875);
-vertex(375, 372.1875);
-vertex(375, 372.1875);
-endShape(CLOSE);
-        fill(247, 195, 20);
-          beginShape();//mocador
-vertex(164, 137.171875);
-vertex(177, 132.171875);
-vertex(180, 119.171875);
-vertex(180, 105.171875);
-vertex(182, 90.171875);
-vertex(185, 100.171875);
-vertex(186, 112.171875);
-vertex(187, 124.171875);
-vertex(187, 136.171875);
-vertex(189, 150.171875);
-vertex(189, 164.171875);
-vertex(188, 175.171875);
-vertex(192, 185.171875);
-vertex(193, 205.171875);
-vertex(193, 220.171875);
-vertex(193, 232.171875);
-vertex(201, 235.171875);
-vertex(210, 235.171875);
-vertex(213, 224.171875);
-vertex(222, 222.171875);
-vertex(232, 220.171875);
-vertex(236, 214.171875);
-vertex(233, 198.171875);
-vertex(226, 182.171875);
-vertex(219, 161.171875);
-vertex(213, 141.171875);
-vertex(207, 115.171875);
-vertex(198, 81.171875);
-vertex(192, 69.171875);
-vertex(195, 59.171875);
-vertex(184, 48.171875);
-vertex(172, 40.171875);
-vertex(161, 36.171875);
-vertex(148, 36.171875);
-vertex(137, 41.171875);
-vertex(130, 46.171875);
-vertex(121, 51.171875);
-vertex(108, 53.171875);
-vertex(99, 58.171875);
-vertex(93, 67.171875);
-vertex(85, 76.171875);
-vertex(82, 86.171875);
-vertex(94, 84.171875);
-vertex(106, 88.171875);
-vertex(118, 94.171875);
-vertex(127, 100.171875);
-vertex(139, 110.171875);
-vertex(148, 121.171875);
-vertex(155, 130.171875);
-vertex(158, 132.171875);
-vertex(158, 132.171875);
-endShape(CLOSE);
-  fill(255, 35, 72);
-          beginShape();//roba
-vertex(73, 290.5);
-vertex(80, 277.5);
-vertex(89, 261.5);
-vertex(98, 243.5);
-vertex(100, 233.5);
-vertex(104, 223.5);
-vertex(108, 209.5);
-vertex(121, 199.5);
-vertex(135, 186.5);
-vertex(152, 178.5);
-vertex(167, 173.5);
-vertex(182, 171.5);
-vertex(193, 171.5);
-vertex(192, 181.5);
-vertex(194, 199.5);
-vertex(194, 220.5);
-vertex(194, 233.5);
-vertex(198, 245.5);
-vertex(204, 254.5);
-vertex(210, 265.5);
-vertex(210, 275.5);
-vertex(212, 285.5);
-vertex(212, 289.5);
-vertex(212, 289.5);
-endShape(CLOSE);
-        fill(222, 125, 153);
-          beginShape();//llavis
-vertex(88, 150.5);
-vertex(93, 150.5);
-vertex(101, 153.5);
-vertex(102, 157.5);
-vertex(94, 159.5);
-vertex(87, 153.5);
-vertex(87, 153.5);
-endShape(CLOSE);
-        
-          break; // Added break to correctly exit the 'happy' case
-        case 'sad':
-  
-          stroke(50,100,200,150); // blau
-          fill(9, 41, 202);
-          beginShape();//perla
-vertex(369, 374.1875);
-vertex(361, 379.1875);
-vertex(361, 389.1875);
-vertex(365, 399.1875);
-vertex(375, 402.1875);
-vertex(385, 397.1875);
-vertex(388, 384.1875);
-vertex(382, 375.1875);
-vertex(375, 372.1875);
-vertex(375, 372.1875);
-endShape(CLOSE);
-          fill(139, 49, 234);
-          beginShape();//mocador
-vertex(164, 137.171875);
-vertex(177, 132.171875);
-vertex(180, 119.171875);
-vertex(180, 105.171875);
-vertex(182, 90.171875); // Removed the stray 'a' here
-vertex(185, 100.171875);
-vertex(186, 112.171875);
-vertex(187, 124.171875);
-vertex(187, 136.171875);
-vertex(189, 150.171875);
-vertex(189, 164.171875);
-vertex(188, 175.171875);
-vertex(192, 185.171875);
-vertex(193, 205.171875);
-vertex(193, 220.171875);
-vertex(193, 232.171875);
-vertex(201, 235.171875);
-vertex(210, 235.171875);
-vertex(213, 224.171875);
-vertex(222, 222.171875);
-vertex(232, 220.171875);
-vertex(236, 214.171875);
-vertex(233, 198.171875);
-vertex(226, 182.171875);
-vertex(219, 161.171875);
-vertex(213, 141.171875);
-vertex(207, 115.171875);
-vertex(198, 81.171875);
-vertex(192, 69.171875);
-vertex(195, 59.171875);
-vertex(184, 48.171875);
-vertex(172, 40.171875);
-vertex(161, 36.171875);
-vertex(148, 36.171875);
-vertex(137, 41.171875);
-vertex(130, 46.171875);
-vertex(121, 51.171875);
-vertex(108, 53.171875);
-vertex(99, 58.171875);
-vertex(93, 67.171875);
-vertex(85, 76.171875);
-vertex(82, 86.171875);
-vertex(94, 84.171875);
-vertex(106, 88.171875);
-vertex(118, 94.171875);
-vertex(127, 100.171875);
-vertex(139, 110.171875);
-vertex(148, 121.171875);
-vertex(155, 130.171875);
-vertex(158, 132.171875);
-vertex(158, 132.171875);
-endShape(CLOSE);
-          fill(7, 125, 144 );
-          beginShape();//roba
-vertex(73, 290.5);
-vertex(80, 277.5);
-vertex(89, 261.5);
-vertex(98, 243.5);
-vertex(100, 233.5);
-vertex(104, 223.5);
-vertex(108, 209.5);
-vertex(121, 199.5);
-vertex(135, 186.5);
-vertex(152, 178.5);
-vertex(167, 173.5);
-vertex(182, 171.5);
-vertex(193, 171.5);
-vertex(192, 181.5);
-vertex(194, 199.5);
-vertex(194, 220.5);
-vertex(194, 233.5);
-vertex(198, 245.5);
-vertex(204, 254.5);
-vertex(210, 265.5);
-vertex(210, 275.5);
-vertex(212, 285.5);
-vertex(212, 289.5);
-vertex(212, 289.5);
-endShape(CLOSE);
-         
-          break;
-        case 'angry':
-          stroke(200,0,0,150); // Red for anger
-          fill(200, 0, 0, 80 * intensity); // Fill with red, intensity based on expression
-          // A jagged, spiky shape to represent anger
-          beginShape();
-          for (let i = 0; i < 16; i++) {
-            let angle = map(i, 0, 16, 0, TWO_PI);
-            let r = 100 + (i % 2 ? 75 : 0) * intensity; // Alternate radius for spikes
-            let x = VIRTUAL_W/2 + r * cos(angle);
-            let y = VIRTUAL_H/2 + r * sin(angle);
-            vertex(x, y);
-          }
-          endShape(CLOSE);
-          break;
-
-        case 'fearful':
-          stroke(100,100,100,150); // Grey for fear
-          fill(100, 100, 100, 80 * intensity); // Fill with grey, intensity based on expression
-          // A trembling, wavy line
-          beginShape();
-          for (let x = 0; x <= VIRTUAL_W; x += 20) {
-            let y = VIRTUAL_H/2 + 50 * sin(x * 0.05 + frameCount * 0.1) * intensity; // Wavy line with animation
-            vertex(x, y);
-          }
-          endShape();
-          break;
-
-        case 'surprised':
-          stroke(0,150,255,150); // Light blue for surprise
-          fill(0, 150, 255, 80 * intensity); // Fill with light blue, intensity based on expression
-          // An expanding, open shape
-          ellipse(VIRTUAL_W/2, VIRTUAL_H/2, 200 + 150 * intensity, 200 + 150 * intensity);
-          // Smaller circles inside for a scattered effect
-          for (let i = 0; i < 5; i++) {
-            let offset = 50 * intensity;
-            ellipse(VIRTUAL_W/2 + random(-offset, offset), VIRTUAL_H/2 + random(-offset, offset), 30, 30);
-          }
-          break;
-
-        case 'disgusted':
-          stroke(0,150,0,150); // Green for disgust
-          fill(0, 150, 0, 80 * intensity); // Fill with green, intensity based on expression
-          // A contorted, uneven shape
-          beginShape();
-          for (let i = 0; i < 12; i++) {
-            let angle = map(i, 0, 12, 0, TWO_PI);
-            let r = 75 + random(-50, 50) * intensity; // Random radius for unevenness
-            let x = VIRTUAL_W/2 + r * cos(angle);
-            let y = VIRTUAL_H/2 + r * sin(angle);
-            vertex(x, y);
-          }
-          endShape(CLOSE);
-          break;
-        
-         case 'neutral': // Added a specific 'neutral' case for a simple rectangle
-          stroke(150,150,150,150); // gris suau
-          fill(150, 150, 150, 50); // Light grey fill
-          rect(VIRTUAL_W/4, VIRTUAL_H/4, VIRTUAL_W/2, VIRTUAL_H/2);
-          break;
-
-        default:
-          stroke(150,150,150,150); // gris suau
-          beginShape();
-          vertex(0, 0);
-          vertex(VIRTUAL_W, 0);
-          vertex(VIRTUAL_W, VIRTUAL_H);
-          vertex(0, VIRTUAL_H);
-          endShape(CLOSE);
-      }
-    }
-  </script>
-</body>
-</html>
+            switch (dominant) {
+                case 'happy':
+                    stroke(255,200,0); // groc
+                    beginShape();//cap
+                    vertex(288.0028409957886, 125.09090805053711);
+                    vertex(259.0028409957886, 135.0909080505371);
+                    vertex(231.00284099578857, 150.0909080505371);
+                    vertex(212.00284099578857, 179.0909080505371);
+                    vertex(196.00284099578857, 215.0909080505371);
+                    vertex(193.00284099578857, 229.72727394104004);
+                    vertex(191.00284099578857, 240.72727394104004);
+                    vertex(191.00284099578857, 257.72727394104004);
+                    vertex(191.00284099578857, 276.72727394104004);
+                    vertex(186.00284099578857, 297.72727394104004);
+                    vertex(191.00284099578857, 321.72727394104004);
+                    vertex(195.00284099578857, 349.72727394104004);
+                    vertex(207.00284099578857, 382.72727394104004);
+                    vertex(213.00284099578857, 403.72727394104004);
+                    vertex(223.00284099578857, 413.72727394104004);
+                    vertex(244.00284099578857, 422.72727394104004);
+                    vertex(263.0028409957886, 418.7272644042969);
+                    vertex(279
